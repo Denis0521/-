@@ -7,100 +7,111 @@
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/svg+xml" href="icon.svg">
     <link rel="apple-touch-icon" href="icon.svg">
-    <meta name="theme-color" content="#e0ece9">
+    <meta name="theme-color" content="#f0f7f5">
     <style>
+        /* ⚪ 預設 (清淡淺色) */
         :root {
-            --primary-color: #1a8c7d;
-            --primary-gradient: linear-gradient(145deg, #2bb8a6, #14796c);
-            --bg-color: #e0ece9;
-            --card-bg: #e0ece9;
-            --border-color: #c5ddd8;
-            --text-dark: #1a1a1a;
-            --text-gray: #5f7a75;
+            --primary-color: #3b9b8e;
+            --bg-color: #f0f7f5;
+            --card-bg: #f0f7f5;
+            --border-color: #dcece8;
+            --text-dark: #2a3331;
+            --text-gray: #75948e;
             --input-bg: transparent;
-            --table-header: #d6e6e2;
-            --tr-even: #d9eae6;
-            --card-shadow: 8px 8px 16px rgba(20, 50, 45, 0.15), -8px -8px 16px rgba(255, 255, 255, 0.8);
-            --card-inset: inset 2px 2px 5px rgba(255,255,255,0.7), inset -2px -2px 5px rgba(20, 50, 45, 0.05);
-            --btn-shadow: 6px 6px 12px rgba(20, 50, 45, 0.2), -6px -6px 12px rgba(255, 255, 255, 0.7);
-            --btn-shadow-active: inset 4px 4px 8px rgba(0,0,0,0.2), inset -4px -4px 8px rgba(255,255,255,0.3);
-            --input-shadow: inset 4px 4px 8px rgba(20, 50, 45, 0.15), inset -4px -4px 8px rgba(255, 255, 255, 0.7);
-            --text-3d: 1px 1px 0px rgba(255,255,255,0.5), 2px 2px 2px rgba(20,50,45,0.15);
-            --text-engrave: 1px 1px 1px rgba(0,0,0,0.2), inset 1px 1px 1px rgba(255,255,255,0.4);
+            --table-header: #e6f2ef;
+            --tr-even: #ebf5f3;
+            /* 更輕柔的陰影 */
+            --card-shadow: 8px 8px 16px rgba(0, 0, 0, 0.05), -8px -8px 16px rgba(255, 255, 255, 0.95);
+            --card-inset: inset 2px 2px 5px rgba(255,255,255,0.8), inset -2px -2px 5px rgba(0, 0, 0, 0.02);
+            --btn-shadow: 5px 5px 10px rgba(0, 0, 0, 0.06), -5px -5px 10px rgba(255, 255, 255, 0.95);
+            --btn-shadow-active: inset 3px 3px 6px rgba(0,0,0,0.08), inset -3px -3px 6px rgba(255,255,255,0.5);
+            --input-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.05), inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+            --text-3d: 1px 1px 0px rgba(255,255,255,0.8), 2px 2px 2px rgba(0,0,0,0.05);
+            --text-engrave: 1px 1px 1px rgba(0,0,0,0.1), inset 1px 1px 1px rgba(255,255,255,0.5);
         }
+        /* 🔮 夢幻紫 (清淡) */
         body.purple {
-            --primary-color: #8e24aa;
-            --bg-color: #f3e5f5; --card-bg: #f3e5f5; --border-color: #e1bee7;
-            --text-dark: #2a0835; --text-gray: #7b1fa2;
-            --table-header: #ecd0f0; --tr-even: #eedcf2;
-            --card-shadow: 8px 8px 16px rgba(74, 20, 140, 0.15), -8px -8px 16px rgba(255, 255, 255, 0.8);
-            --btn-shadow: 6px 6px 12px rgba(74, 20, 140, 0.15), -6px -6px 12px rgba(255, 255, 255, 0.8);
-            --input-shadow: inset 4px 4px 8px rgba(74, 20, 140, 0.15), inset -4px -4px 8px rgba(255, 255, 255, 0.8);
+            --primary-color: #9c54b8;
+            --bg-color: #faf5fa; --card-bg: #faf5fa; --border-color: #ecdcf0;
+            --text-dark: #37283b; --text-gray: #a47bb5;
+            --table-header: #f2e6f4; --tr-even: #f6ebf7;
+            --card-shadow: 8px 8px 16px rgba(119, 50, 140, 0.05), -8px -8px 16px rgba(255, 255, 255, 0.95);
+            --btn-shadow: 5px 5px 10px rgba(119, 50, 140, 0.06), -5px -5px 10px rgba(255, 255, 255, 0.95);
+            --input-shadow: inset 4px 4px 8px rgba(119, 50, 140, 0.05), inset -4px -4px 8px rgba(255, 255, 255, 0.9);
         }
+        /* 🌊 海洋藍 (清淡) */
         body.blue {
-            --primary-color: #0277bd;
-            --bg-color: #e1f5fe; --card-bg: #e1f5fe; --border-color: #b3e5fc;
-            --text-dark: #012a44; --text-gray: #0288d1;
-            --table-header: #cdeefc; --tr-even: #d4f1fc;
-            --card-shadow: 8px 8px 16px rgba(1, 87, 155, 0.15), -8px -8px 16px rgba(255, 255, 255, 0.8);
-            --btn-shadow: 6px 6px 12px rgba(1, 87, 155, 0.15), -6px -6px 12px rgba(255, 255, 255, 0.8);
-            --input-shadow: inset 4px 4px 8px rgba(1, 87, 155, 0.15), inset -4px -4px 8px rgba(255, 255, 255, 0.8);
+            --primary-color: #4ea8de;
+            --bg-color: #f2f9fd; --card-bg: #f2f9fd; --border-color: #dff0fa;
+            --text-dark: #233440; --text-gray: #719bb8;
+            --table-header: #e8f4fc; --tr-even: #ecf6fd;
+            --card-shadow: 8px 8px 16px rgba(22, 98, 145, 0.05), -8px -8px 16px rgba(255, 255, 255, 0.95);
+            --btn-shadow: 5px 5px 10px rgba(22, 98, 145, 0.06), -5px -5px 10px rgba(255, 255, 255, 0.95);
+            --input-shadow: inset 4px 4px 8px rgba(22, 98, 145, 0.05), inset -4px -4px 8px rgba(255, 255, 255, 0.9);
         }
+        /* ☕ 拿鐵棕 (清淡) */
         body.brown {
-            --primary-color: #5d4037;
-            --bg-color: #efebe9; --card-bg: #efebe9; --border-color: #d7ccc8;
-            --text-dark: #3e2723; --text-gray: #795548;
-            --table-header: #e2d9d5; --tr-even: #e8e0dc;
-            --card-shadow: 8px 8px 16px rgba(62, 39, 35, 0.15), -8px -8px 16px rgba(255, 255, 255, 0.8);
-            --btn-shadow: 6px 6px 12px rgba(62, 39, 35, 0.15), -6px -6px 12px rgba(255, 255, 255, 0.8);
-            --input-shadow: inset 4px 4px 8px rgba(62, 39, 35, 0.15), inset -4px -4px 8px rgba(255, 255, 255, 0.8);
+            --primary-color: #8b736b;
+            --bg-color: #f9f7f6; --card-bg: #f9f7f6; --border-color: #eae5e2;
+            --text-dark: #3a322f; --text-gray: #9c8983;
+            --table-header: #f0ebe9; --tr-even: #f4efed;
+            --card-shadow: 8px 8px 16px rgba(102, 78, 70, 0.05), -8px -8px 16px rgba(255, 255, 255, 0.95);
+            --btn-shadow: 5px 5px 10px rgba(102, 78, 70, 0.06), -5px -5px 10px rgba(255, 255, 255, 0.95);
+            --input-shadow: inset 4px 4px 8px rgba(102, 78, 70, 0.05), inset -4px -4px 8px rgba(255, 255, 255, 0.9);
         }
-        body.gray {
-            --primary-color: #424242;
-            --bg-color: #f0f0f0; --card-bg: #f0f0f0; --border-color: #d0d0d0;
-            --text-dark: #212121; --text-gray: #616161;
-            --table-header: #e8e8e8; --tr-even: #f5f5f5;
-            --card-shadow: 8px 8px 16px rgba(0, 0, 0, 0.12), -8px -8px 16px rgba(255, 255, 255, 0.9);
-            --btn-shadow: 6px 6px 12px rgba(0, 0, 0, 0.12), -6px -6px 12px rgba(255, 255, 255, 0.9);
-            --input-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.12), inset -4px -4px 8px rgba(255, 255, 255, 0.9);
-        }
+        /* 🌿 森林綠 (清淡) */
         body.green {
-            --primary-color: #2e7d32;
-            --bg-color: #e8f5e9; --card-bg: #e8f5e9; --border-color: #c8e6c9;
-            --text-dark: #1b5e20; --text-gray: #388e3c;
-            --table-header: #dcedc8; --tr-even: #f1f8e9;
-            --card-shadow: 8px 8px 16px rgba(27, 94, 32, 0.15), -8px -8px 16px rgba(255, 255, 255, 0.8);
-            --btn-shadow: 6px 6px 12px rgba(27, 94, 32, 0.15), -6px -6px 12px rgba(255, 255, 255, 0.8);
-            --input-shadow: inset 4px 4px 8px rgba(27, 94, 32, 0.15), inset -4px -4px 8px rgba(255, 255, 255, 0.8);
+            --primary-color: #52a456;
+            --bg-color: #f4fbf4; --card-bg: #f4fbf4; --border-color: #e2f2e2;
+            --text-dark: #273828; --text-gray: #77a87a;
+            --table-header: #eaf6ea; --tr-even: #eff9ef;
+            --card-shadow: 8px 8px 16px rgba(35, 102, 39, 0.05), -8px -8px 16px rgba(255, 255, 255, 0.95);
+            --btn-shadow: 5px 5px 10px rgba(35, 102, 39, 0.06), -5px -5px 10px rgba(255, 255, 255, 0.95);
+            --input-shadow: inset 4px 4px 8px rgba(35, 102, 39, 0.05), inset -4px -4px 8px rgba(255, 255, 255, 0.9);
         }
+        /* 🌅 夕陽橘 (清淡) */
         body.sunset {
-            --primary-color: #d84315;
-            --bg-color: #fbe9e7; --card-bg: #fbe9e7; --border-color: #ffccbc;
-            --text-dark: #bf360c; --text-gray: #e64a19;
-            --table-header: #ffab91; --tr-even: #fce4ec;
-            --card-shadow: 8px 8px 16px rgba(191, 54, 12, 0.15), -8px -8px 16px rgba(255, 255, 255, 0.9);
-            --btn-shadow: 6px 6px 12px rgba(191, 54, 12, 0.15), -6px -6px 12px rgba(255, 255, 255, 0.9);
-            --input-shadow: inset 4px 4px 8px rgba(191, 54, 12, 0.15), inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+            --primary-color: #e07a5f;
+            --bg-color: #fdf6f5; --card-bg: #fdf6f5; --border-color: #fae8e5;
+            --text-dark: #452b25; --text-gray: #bf8d82;
+            --table-header: #fcece9; --tr-even: #fdf0ee;
+            --card-shadow: 8px 8px 16px rgba(184, 69, 40, 0.05), -8px -8px 16px rgba(255, 255, 255, 0.95);
+            --btn-shadow: 5px 5px 10px rgba(184, 69, 40, 0.06), -5px -5px 10px rgba(255, 255, 255, 0.95);
+            --input-shadow: inset 4px 4px 8px rgba(184, 69, 40, 0.05), inset -4px -4px 8px rgba(255, 255, 255, 0.9);
         }
-        /* 🌸 新增：櫻花粉主題 */
+        /* 🌸 櫻花粉 (清淡) */
         body.pink {
-            --primary-color: #c2185b;
-            --bg-color: #fce4ec; --card-bg: #fce4ec; --border-color: #f8bbd0;
-            --text-dark: #4a148c; --text-gray: #d81b60;
-            --table-header: #f8bbd0; --tr-even: #fdf5f8;
-            --card-shadow: 8px 8px 16px rgba(194, 24, 91, 0.15), -8px -8px 16px rgba(255, 255, 255, 0.9);
-            --btn-shadow: 6px 6px 12px rgba(194, 24, 91, 0.15), -6px -6px 12px rgba(255, 255, 255, 0.9);
-            --input-shadow: inset 4px 4px 8px rgba(194, 24, 91, 0.15), inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+            --primary-color: #d9658b;
+            --bg-color: #fff6f9; --card-bg: #fff6f9; --border-color: #fce4ed;
+            --text-dark: #422630; --text-gray: #c48b9f;
+            --table-header: #fdedf3; --tr-even: #fef1f6;
+            --card-shadow: 8px 8px 16px rgba(191, 55, 100, 0.05), -8px -8px 16px rgba(255, 255, 255, 0.95);
+            --btn-shadow: 5px 5px 10px rgba(191, 55, 100, 0.06), -5px -5px 10px rgba(255, 255, 255, 0.95);
+            --input-shadow: inset 4px 4px 8px rgba(191, 55, 100, 0.05), inset -4px -4px 8px rgba(255, 255, 255, 0.9);
         }
-        /* 🍃 新增：薄荷綠主題 */
+        /* 🍃 薄荷綠 (清淡) */
         body.mint {
-            --primary-color: #00796b;
-            --bg-color: #e0f2f1; --card-bg: #e0f2f1; --border-color: #b2dfdb;
-            --text-dark: #004d40; --text-gray: #00897b;
-            --table-header: #b2dfdb; --tr-even: #eafaf9;
-            --card-shadow: 8px 8px 16px rgba(0, 121, 107, 0.15), -8px -8px 16px rgba(255, 255, 255, 0.9);
-            --btn-shadow: 6px 6px 12px rgba(0, 121, 107, 0.15), -6px -6px 12px rgba(255, 255, 255, 0.9);
-            --input-shadow: inset 4px 4px 8px rgba(0, 121, 107, 0.15), inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+            --primary-color: #4cb0a5;
+            --bg-color: #f2fbf9; --card-bg: #f2fbf9; --border-color: #dcf2ec;
+            --text-dark: #223835; --text-gray: #71a39d;
+            --table-header: #e6f6f1; --tr-even: #ecf8f4;
+            --card-shadow: 8px 8px 16px rgba(25, 115, 104, 0.05), -8px -8px 16px rgba(255, 255, 255, 0.95);
+            --btn-shadow: 5px 5px 10px rgba(25, 115, 104, 0.06), -5px -5px 10px rgba(255, 255, 255, 0.95);
+            --input-shadow: inset 4px 4px 8px rgba(25, 115, 104, 0.05), inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+        }
+        /* 🌫️ 質感灰 (加深/清水模風格) */
+        body.gray {
+            --primary-color: #2c3e50;
+            --bg-color: #cdd1d5; --card-bg: #cdd1d5; --border-color: #b5babb;
+            --text-dark: #1e252c; --text-gray: #556270;
+            --table-header: #c2c6ca; --tr-even: #c7cbd0;
+            /* 較深底色的專屬陰影設定 */
+            --card-shadow: 8px 8px 16px rgba(0, 0, 0, 0.15), -8px -8px 16px rgba(255, 255, 255, 0.6);
+            --card-inset: inset 2px 2px 5px rgba(255,255,255,0.4), inset -2px -2px 5px rgba(0, 0, 0, 0.05);
+            --btn-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15), -5px -5px 10px rgba(255, 255, 255, 0.6);
+            --btn-shadow-active: inset 3px 3px 6px rgba(0,0,0,0.15), inset -3px -3px 6px rgba(255,255,255,0.2);
+            --input-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.12), inset -4px -4px 8px rgba(255, 255, 255, 0.5);
+            --text-3d: 1px 1px 0px rgba(255,255,255,0.4), 2px 2px 2px rgba(0,0,0,0.1);
         }
 
         body { 
@@ -259,6 +270,7 @@
         </div>
     </div>
 
+    <!-- 進階設定 Modal -->
     <div id="toolsModal" class="modal-overlay no-print">
         <div class="modal-content">
             <span class="modal-close" onclick="closeTools()">&times;</span>
@@ -270,7 +282,7 @@
                 <option value="purple">🔮 夢幻紫</option>
                 <option value="blue">🌊 海洋藍</option>
                 <option value="brown">☕ 拿鐵棕</option>
-                <option value="gray">🌫️ 質感灰</option>
+                <option value="gray">🌫️ 質感灰 (深色)</option>
                 <option value="pink">🌸 櫻花粉</option>
                 <option value="mint">🍃 薄荷綠</option>
             </select>
@@ -304,10 +316,11 @@
                 </div>
             </div>
 
-            <div class="version-text">Version 8.3 ✨ Aesthetics Edition</div>
+            <div class="version-text">Version 8.4 ✨ Pastel Edition</div>
         </div>
     </div>
 
+    <!-- 說明 Modal -->
     <div id="helpModal" class="modal-overlay no-print">
         <div class="modal-content" style="max-width: 90%; max-height: 85vh; overflow-y: auto;">
             <span class="modal-close" onclick="closeHelp()">&times;</span>
@@ -336,10 +349,11 @@
                 </ol>
             </div>
 
-            <div class="version-text">Version 8.3 ✨ Aesthetics Edition</div>
+            <div class="version-text">Version 8.4 ✨ Pastel Edition</div>
         </div>
     </div>
 
+    <!-- 選擇時段 Modal -->
     <div id="periodModal" class="modal-overlay no-print">
         <div class="modal-content" style="text-align: center;">
             <span class="modal-close" onclick="closePeriodModal()">&times;</span>
@@ -367,13 +381,13 @@
         }
 
         const themeColors = { 
-            'light': '#e0ece9', 'green': '#e8f5e9', 'sunset': '#fbe9e7',
-            'purple': '#f3e5f5', 'blue': '#e1f5fe', 'brown': '#efebe9', 
-            'gray': '#f0f0f0', 'pink': '#fce4ec', 'mint': '#e0f2f1' 
+            'light': '#f0f7f5', 'green': '#f4fbf4', 'sunset': '#fdf6f5',
+            'purple': '#faf5fa', 'blue': '#f2f9fd', 'brown': '#f9f7f6', 
+            'gray': '#cdd1d5', 'pink': '#fff6f9', 'mint': '#f2fbf9' 
         };
         
         function updateThemeMeta(theme) { 
-            document.querySelector('meta[name="theme-color"]').setAttribute('content', themeColors[theme] || '#e0ece9'); 
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', themeColors[theme] || '#f0f7f5'); 
         }
         
         function loadTheme() {
