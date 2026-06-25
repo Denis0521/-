@@ -163,7 +163,10 @@
     <div class="toast-container" id="toast-container"></div>
     <div class="header-container no-print">
         <h2>血壓記錄</h2>
-        <button class="header-btn" onclick="openTools()">進階</button>
+        <div style="display: flex; gap: 8px;">
+            <button class="header-btn" onclick="openHelp()">❓</button>
+            <button class="header-btn" onclick="openTools()">進階</button>
+        </div>
     </div>
     <div class="subtitle no-print" id="current-time-display">今日：載入中... 時段：載入中...</div>
     
@@ -223,8 +226,7 @@
                 <option value="brown">棕色</option>
                 <option value="gray">灰色</option>
             </select>
-            <div class="card-title" style="margin-top: 5px;">💾 本地備份</div>
-            <p style="font-size: 13px; color: var(--text-gray); margin-bottom: 12px; font-weight: bold;">資料已自動儲存在本裝置，建議定期使用 Gist 雲端備份。</p>
+
             
             <div class="card-title" style="margin-top: 20px;">☁️ GitHub Gist 雲端備份</div>
             <div id="gist-status" class="gist-status">
@@ -256,6 +258,60 @@
             <div class="version-text">目前版本：V8.1 (Gist 雲端版)</div>
         </div>
     </div>
+    <div id="helpModal" class="modal-overlay no-print">
+        <div class="modal-content" style="max-width: 90%; max-height: 80vh; overflow-y: auto;">
+            <span class="modal-close" onclick="closeHelp()">&times;</span>
+            <div class="card-title" style="margin-top: 5px;">📖 使用說明</div>
+
+            <div style="margin-bottom: 16px;">
+                <div class="card-title" style="font-size: 16px; margin-top: 10px;">🩺 主要功能</div>
+                <ul style="font-size: 13px; color: var(--text-gray); padding-left: 20px; line-height: 1.8; font-weight: bold;">
+                    <li>記錄每日早晚血壓（收縮壓、舒張壓、心率）</li>
+                    <li>點擊日期右側 ✏️ 可修改或補填記錄</li>
+                    <li>選擇日期範圍查詢歷史記錄</li>
+                    <li>產出 PDF 列印或分享給醫師</li>
+                    <li>多種佈景主題可切換</li>
+                </ul>
+            </div>
+
+            <div style="margin-bottom: 16px;">
+                <div class="card-title" style="font-size: 16px; margin-top: 10px;">☁️ GitHub Gist 雲端備份</div>
+                <p style="font-size: 13px; color: var(--text-gray); margin-bottom: 8px; font-weight: bold;">
+                    將血壓記錄自動備份到您的 GitHub 帳號，換手機時可輕鬆還原。
+                </p>
+            </div>
+
+            <div style="margin-bottom: 16px;">
+                <div class="card-title" style="font-size: 16px; margin-top: 10px;">🔑 如何申請 GitHub Token</div>
+                <ol style="font-size: 13px; color: var(--text-gray); padding-left: 20px; line-height: 1.8; font-weight: bold;">
+                    <li>到 <a href="https://github.com" target="_blank" style="color: var(--primary-color);">github.com</a> 註冊免費帳號</li>
+                    <li>點擊右上角頭像 → Settings</li>
+                    <li>左側最下方 → Developer settings</li>
+                    <li>Personal access tokens → Tokens (classic)</li>
+                    <li>點 Generate new token (classic)</li>
+                    <li>Note 填寫：血壓記錄備份</li>
+                    <li>Expiration 選 No expiration</li>
+                    <li>Scopes 只勾選「gist」</li>
+                    <li>點 Generate token，立刻複製（只顯示一次！）</li>
+                    <li>回到本 App，貼上 Token，點「儲存並連線測試」</li>
+                    <li>點「立即同步到雲端」建立第一個備份</li>
+                </ol>
+            </div>
+
+            <div style="margin-bottom: 16px;">
+                <div class="card-title" style="font-size: 16px; margin-top: 10px;">💡 使用提示</div>
+                <ul style="font-size: 13px; color: var(--text-gray); padding-left: 20px; line-height: 1.8; font-weight: bold;">
+                    <li>開啟「自動同步」後，每次儲存記錄會自動上傳</li>
+                    <li>換手機時，在新手機輸入同一個 Token → 點「從雲端還原資料」</li>
+                    <li>Token 儲存在本裝置，可隨時點「複製 Token」查看</li>
+                    <li>所有資料儲存在您的 GitHub 私有 Gist 中，安全隱私</li>
+                </ul>
+            </div>
+
+            <div class="version-text">目前版本：V8.1 (Gist 雲端版)</div>
+        </div>
+    </div>
+
 
     <div id="periodModal" class="modal-overlay no-print">
         <div class="modal-content" style="text-align: center;">
@@ -358,6 +414,8 @@
 
         function openTools() { document.getElementById('toolsModal').style.display = 'flex'; }
         function closeTools() { document.getElementById('toolsModal').style.display = 'none'; }
+        function openHelp() { document.getElementById('helpModal').style.display = 'flex'; }
+        function closeHelp() { document.getElementById('helpModal').style.display = 'none'; }
 
         function openPeriodModal(date) {
             pendingEditDate = date;
@@ -670,6 +728,11 @@
         const originalInit = init;
         init = function() {
             originalInit();
+            // 確保 gistConfig 已從 localStorage 載入
+            const saved = JSON.parse(localStorage.getItem(GIST_STORAGE_KEY)) || {};
+            gistConfig.token = saved.token || '';
+            gistConfig.gistId = saved.gistId || '';
+            gistConfig.autoSync = saved.autoSync || false;
             updateGistUI();
         };
 
