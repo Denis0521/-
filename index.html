@@ -101,8 +101,7 @@
         .btn-primary { color: var(--primary-color); border: 1px solid var(--primary-color); }
         .btn-outline { color: var(--primary-color); border: 1px solid var(--primary-color); }
         .btn-danger { background: linear-gradient(145deg, #e74c3c, #c0392b); color: white; }
-        .btn-backup { background: linear-gradient(145deg, #ffb74d, #f57c00); }
-        button:active { transform: translateY(3px); box-shadow: var(--btn-shadow-active); }
+                button:active { transform: translateY(3px); box-shadow: var(--btn-shadow-active); }
         .hint-text { color: var(--primary-color); font-size: 13px; margin-bottom: 8px; font-weight: bold; text-shadow: 1px 1px 0px rgba(255,255,255,0.6); }
         .table-responsive { width: 100%; overflow-x: auto; border-radius: 16px; box-shadow: var(--card-inset); border: 1px solid var(--border-color); background: transparent; }
         table { width: 100%; border-collapse: collapse; text-align: center; font-size: 16px; background: transparent; color: var(--text-dark); min-width: 600px; }
@@ -167,8 +166,7 @@
         <button class="header-btn" onclick="openTools()">進階</button>
     </div>
     <div class="subtitle no-print" id="current-time-display">今日：載入中... 時段：載入中...</div>
-    <input type="file" id="import-file" accept=".json" style="display: none;">
-
+    
     <div class="card no-print" id="input-card">
         <div class="card-title" id="input-card-title">新增 / 修改記錄</div>
         <div class="input-group">
@@ -225,12 +223,8 @@
                 <option value="brown">棕色</option>
                 <option value="gray">灰色</option>
             </select>
-            <div class="card-title" style="margin-top: 5px;">💾 資料備份與還原</div>
-            <p style="font-size: 13px; color: var(--text-gray); margin-bottom: 12px; font-weight: bold;">更換手機前，請先匯出備份檔案。</p>
-            <div class="btn-group" style="flex-direction: column; gap: 10px;">
-                <button class="btn-backup" onclick="exportBackup()">📥 匯出最新備份</button>
-                <button class="btn-outline" onclick="document.getElementById('import-file').click(); closeTools();">📂 匯入舊記錄檔案</button>
-            </div>
+            <div class="card-title" style="margin-top: 5px;">💾 本地備份</div>
+            <p style="font-size: 13px; color: var(--text-gray); margin-bottom: 12px; font-weight: bold;">資料已自動儲存在本裝置，建議定期使用 Gist 雲端備份。</p>
             
             <div class="card-title" style="margin-top: 20px;">☁️ GitHub Gist 雲端備份</div>
             <div id="gist-status" class="gist-status">
@@ -240,9 +234,10 @@
             <div id="gist-setup-area">
                 <p style="font-size: 13px; color: var(--text-gray); margin-bottom: 8px; font-weight: bold;">
                     1. 到 GitHub → Settings → Developer settings → Personal access tokens → 產生 Token<br>
-                    2. 勾選「gist」權限，複製 Token 貼到下方
+                    2. 勾選「gist」權限，複製 Token 貼到下方<br>
+                    <span style="color: var(--primary-color);">💡 Token 會儲存在本裝置，可隨時複製查看</span>
                 </p>
-                <input type="password" id="gist-token-input" class="token-input" placeholder="貼上 GitHub Personal Access Token">
+                <input type="text" id="gist-token-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="token-input" placeholder="貼上 GitHub Personal Access Token">
                 <div class="btn-group" style="flex-direction: column; gap: 10px;">
                     <button class="btn-primary" onclick="saveGistToken()">💾 儲存並連線測試</button>
                 </div>
@@ -253,6 +248,7 @@
                     <button class="btn-primary" onclick="syncToGist()">☁️ 立即同步到雲端</button>
                     <button class="btn-outline" onclick="importFromGist()">📥 從雲端還原資料</button>
                     <button class="btn-outline" onclick="toggleAutoSync()" id="btn-auto-sync">🔄 自動同步：關閉</button>
+                    <button class="btn-outline" onclick="copyToken()">📋 複製 Token</button>
                     <button class="btn-danger" onclick="disconnectGist()">🔗 解除連線</button>
                 </div>
             </div>
@@ -386,30 +382,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function exportBackup() {
-            if (Object.keys(appData).length === 0) { showToast('尚無資料可供備份', 'error'); return; }
-            const url = URL.createObjectURL(new Blob([JSON.stringify(appData, null, 2)], { type: 'application/json' }));
-            const a = document.createElement('a'); a.href = url; a.download = `血壓記錄_最新備份_${getCurrentInfo().date}.json`;
-            document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
-            showToast('備份已下載至手機「下載」資料夾！'); closeTools();
-        }
 
-        document.getElementById('import-file').addEventListener('change', function(e) {
-            const file = e.target.files[0]; if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                try {
-                    const importedData = JSON.parse(event.target.result);
-                    for (const date in importedData) {
-                        if (!appData[date]) { appData[date] = importedData[date]; } 
-                        else { for (const period in importedData[date]) { if (!appData[date][period] || !appData[date][period].sys) { appData[date][period] = importedData[date][period]; } } }
-                    }
-                    localStorage.setItem('bpRecords', JSON.stringify(appData));
-                    showToast('舊記錄已完美合併還原！'); renderTable();
-                } catch (error) { showToast('檔案讀取失敗，請確認格式', 'error'); }
-                e.target.value = '';
-            }; reader.readAsText(file);
-        });
 
         function renderTable() {
             const tbody = document.getElementById('record-table-body');
@@ -458,6 +431,8 @@
         // ========== GitHub Gist 雲端備份功能 ==========
         const GIST_STORAGE_KEY = 'bpGistConfig';
         let gistConfig = JSON.parse(localStorage.getItem(GIST_STORAGE_KEY)) || { token: '', gistId: '', autoSync: false };
+        // 個人 Token 設定（安全：每個使用者使用自己的 GitHub 帳號）
+        // 個人 Token 設定（安全：每個使用者使用自己的 GitHub 帳號）
         let isSyncing = false;
 
         function updateGistUI() {
@@ -485,7 +460,7 @@
                 btnAutoSync.textContent = gistConfig.autoSync ? '🔄 自動同步：開啟' : '🔄 自動同步：關閉';
             } else {
                 dot.className = 'gist-status-dot';
-                statusText.textContent = 'Token 已儲存，尚未建立 Gist';
+                statusText.textContent = 'Token 已驗證，尚未建立 Gist';
                 setupArea.style.display = 'none';
                 connectedArea.style.display = 'block';
                 idDisplay.innerHTML = '<small>請點擊「立即同步到雲端」建立新的 Gist</small>';
@@ -562,6 +537,7 @@
                     url = `https://api.github.com/gists/${gistConfig.gistId}`;
                     method = 'PATCH';
                 }
+
 
                 const response = await fetch(url, {
                     method: method,
@@ -660,6 +636,24 @@
                 updateGistUI();
                 showToast('已解除 Gist 連線');
             }
+        }
+
+        function copyToken() {
+            if (!gistConfig.token) { showToast('目前沒有儲存的 Token', 'error'); return; }
+            navigator.clipboard.writeText(gistConfig.token).then(() => {
+                showToast('Token 已複製到剪貼簿！');
+            }).catch(() => {
+                // 備案：使用傳統方式
+                const textarea = document.createElement('textarea');
+                textarea.value = gistConfig.token;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showToast('Token 已複製到剪貼簿！');
+            });
         }
 
         // 修改 saveRecord 加入自動同步
