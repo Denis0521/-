@@ -361,16 +361,6 @@
         function formatDate(date) { const y = date.getFullYear(); const m = String(date.getMonth() + 1).padStart(2, '0'); const d = String(date.getDate()).padStart(2, '0'); return `${y}-${m}-${d}`; }
         function getCurrentInfo() { const now = new Date(); const date = formatDate(now); const period = now.getHours() < 12 ? 'morning' : 'evening'; return { date, period, periodText: period === 'morning' ? '早上' : '晚上' }; }
 
-        function init() {
-            loadTheme();
-            const info = getCurrentInfo();
-            document.getElementById('current-time-display').innerText = `今日：${info.date} 時段：${info.periodText}`;
-            const pastDate = new Date(); pastDate.setDate(pastDate.getDate() - 2);
-            document.getElementById('start-date').value = formatDate(pastDate);
-            document.getElementById('end-date').value = info.date;
-            renderTable();
-        }
-
         function clearInputs() {
             document.getElementById('sys').value = '';
             document.getElementById('dia').value = '';
@@ -478,7 +468,7 @@
             window.print();
         }
 
-        init();
+        // 移除這裡原本的 init()
 
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -489,8 +479,6 @@
         // ========== GitHub Gist 雲端備份功能 ==========
         const GIST_STORAGE_KEY = 'bpGistConfig';
         let gistConfig = JSON.parse(localStorage.getItem(GIST_STORAGE_KEY)) || { token: '', gistId: '', autoSync: false };
-        // 個人 Token 設定（安全：每個使用者使用自己的 GitHub 帳號）
-        // 個人 Token 設定（安全：每個使用者使用自己的 GitHub 帳號）
         let isSyncing = false;
 
         function updateGistUI() {
@@ -724,6 +712,16 @@
             }
         };
 
+        function init() {
+            loadTheme();
+            const info = getCurrentInfo();
+            document.getElementById('current-time-display').innerText = `今日：${info.date} 時段：${info.periodText}`;
+            const pastDate = new Date(); pastDate.setDate(pastDate.getDate() - 2);
+            document.getElementById('start-date').value = formatDate(pastDate);
+            document.getElementById('end-date').value = info.date;
+            renderTable();
+        }
+
         // 修改 init 加入 Gist UI 初始化
         const originalInit = init;
         init = function() {
@@ -736,7 +734,9 @@
             updateGistUI();
         };
 
+        // 在最底端呼叫初始化，確保所有覆寫與邏輯都掛載完畢
+        init();
+
     </script>
 </body>
 </html>
-
