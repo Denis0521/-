@@ -1,5 +1,5 @@
-// 每次更新網頁有大改動時，可以更改這個版本號，強制讓瀏覽器更新快取
-const CACHE_NAME = 'bp-tracker-v9.0';
+// 每次更新網頁有大改動時，更改這個版本號，強制讓瀏覽器更新快取
+const CACHE_NAME = 'bp-tracker-v9.1'; // 👈 這裡改成 v9.1
 
 // 需要被快取的檔案清單
 const urlsToCache = [
@@ -41,7 +41,6 @@ self.addEventListener('activate', event => {
 });
 
 // 3. 攔截請求階段 (Fetch) - 優先從網路抓取，如果沒網路才從快取拿 (Network First)
-// 這樣能確保使用者在有網路時總能看到最新版 UI，斷網時又能順利開啟
 self.addEventListener('fetch', event => {
   event.respondWith(
     fetch(event.request)
