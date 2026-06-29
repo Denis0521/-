@@ -9,15 +9,14 @@
     <link rel="apple-touch-icon" href="icon.svg">
     <meta name="theme-color" content="#d8e8e5">
     <script>
-        // 【防閃爍機制】在網頁渲染前立即套用主題
+        // 【防閃爍機制】在網頁渲染前立即套用主題 (將 gray 改為 orange)
         let savedTheme = localStorage.getItem('bpTheme') || 'light';
-        const allowedThemes = ['light', 'green', 'purple', 'blue', 'brown', 'gray'];
+        const allowedThemes = ['light', 'green', 'purple', 'blue', 'brown', 'orange'];
         if (!allowedThemes.includes(savedTheme)) savedTheme = 'light';
         document.documentElement.className = savedTheme;
     </script>
     <style>
-        /* 
-          水彩暈染與主題色深色細框線設計系統
+        /* 水彩暈染與主題色深色細框線設計系統
         */
         :root {
             /* 經典綠 (預設) - 柔和薄荷綠水彩 */
@@ -59,16 +58,16 @@
             --text-gray: rgba(var(--theme-rgb), 0.8);
         }
         
-        html.gray {
-            /* 質感灰 - 灰階水彩 */
-            --theme-rgb: 97, 97, 97;
+        html.orange {
+            /* 活力橙 - 夕陽水彩 (取代原本的灰色) */
+            --theme-rgb: 240, 113, 20;
             --primary-color: rgb(var(--theme-rgb));
-            --text-dark: #212121;
-            --text-gray: rgba(var(--theme-rgb), 0.9);
+            --text-dark: #3e1b00;
+            --text-gray: rgba(var(--theme-rgb), 0.95);
         }
 
-        /* 核心變數應用 (適用所有主題) */
-        :root, html.green, html.purple, html.blue, html.brown, html.gray {
+        /* 核心變數應用 (適用所有主題，加入 orange) */
+        :root, html.green, html.purple, html.blue, html.brown, html.orange {
             /* 水彩暈染背景 */
             --bg-color: 
                 radial-gradient(circle at 10% 0%, rgba(var(--theme-rgb), 0.25) 0%, transparent 45%),
@@ -76,7 +75,7 @@
                 radial-gradient(circle at 40% 100%, rgba(var(--theme-rgb), 0.2) 0%, transparent 50%),
                 linear-gradient(135deg, rgba(var(--theme-rgb), 0.1) 0%, rgba(255, 255, 255, 0.9) 100%);
             
-            /* 【重點修改】改為主題色的深色細框線 */
+            /* 深色細框線 */
             --card-border: 1px solid rgba(var(--theme-rgb), 0.7);
             --card-bg: rgba(255, 255, 255, 0.65);
             --card-shadow: 0 12px 32px rgba(var(--theme-rgb), 0.1), 0 4px 12px rgba(0, 0, 0, 0.03);
@@ -109,13 +108,13 @@
             -webkit-backdrop-filter: blur(16px);
             border-radius: 20px; padding: 18px; margin-bottom: 16px; 
             box-shadow: var(--card-shadow); 
-            border: var(--card-border); /* 套用深色細框線 */
+            border: var(--card-border); 
             transition: all 0.3s ease;
         }
         
         .card-title { 
             font-size: 18px; font-weight: 900; margin-bottom: 14px; padding-bottom: 8px; 
-            border-bottom: 2px dashed rgba(var(--theme-rgb), 0.6); /* 加深底部分隔線 */
+            border-bottom: 2px dashed rgba(var(--theme-rgb), 0.6); 
             color: var(--primary-color); 
             text-shadow: var(--text-3d); display: flex; justify-content: space-between; align-items: center;
         }
@@ -124,13 +123,13 @@
         .input-group input { 
             flex: 1; width: 100%; height: 48px; padding: 0 10px; border-radius: 12px; font-size: 16px; font-weight: bold;
             text-align: center; background: var(--input-bg); color: var(--text-dark); 
-            border: 1px solid rgba(var(--theme-rgb), 0.6); /* 輸入框深色細框線 */
+            border: 1px solid rgba(var(--theme-rgb), 0.6); 
             box-shadow: var(--input-shadow); transition: all 0.3s; box-sizing: border-box;
         }
         .input-group input:focus { 
             outline: none; 
             background: rgba(255, 255, 255, 0.95);
-            border-color: rgba(var(--theme-rgb), 1); /* 點擊時顏色更深 */
+            border-color: rgba(var(--theme-rgb), 1); 
             box-shadow: 0 0 0 3px rgba(var(--theme-rgb), 0.15); 
         }
         
@@ -151,12 +150,12 @@
         
         .btn-primary { 
             background: rgba(var(--theme-rgb), 0.85); 
-            color: white; border: 1px solid rgba(var(--theme-rgb), 0.9); /* 主按鈕深色邊框 */
+            color: white; border: 1px solid rgba(var(--theme-rgb), 0.9); 
             box-shadow: 0 6px 16px rgba(var(--theme-rgb), 0.25); 
         }
         .btn-outline { 
             background: rgba(255, 255, 255, 0.5); 
-            border: 1px solid rgba(var(--theme-rgb), 0.7); /* 輪廓按鈕深色細框 */
+            border: 1px solid rgba(var(--theme-rgb), 0.7); 
             color: var(--primary-color); box-shadow: var(--btn-shadow);
         }
         .btn-danger { 
@@ -189,7 +188,6 @@
         }
         table { width: 100%; border-collapse: collapse; text-align: center; font-size: 15px; background: transparent; color: var(--text-dark); min-width: 600px; }
         
-        /* 表格內框線加深 */
         th, td { padding: 10px 4px; border-bottom: 1px solid rgba(var(--theme-rgb), 0.4); white-space: nowrap; }
         th { background-color: var(--table-header); font-weight: 900; color: var(--primary-color); border-bottom: 2px solid rgba(var(--theme-rgb), 0.7); }
         
@@ -357,8 +355,7 @@
                 <option value="purple">🔮 夢幻紫 (薰衣草水彩)</option>
                 <option value="blue">🌊 海洋藍 (天空水彩)</option>
                 <option value="brown">☕ 拿鐵棕 (奶茶水彩)</option>
-                <option value="gray">🌫️ 質感灰 (灰階水彩)</option>
-            </select>
+                <option value="orange">🍊 活力橙 (夕陽水彩)</option> </select>
 
             <div class="card-title" style="margin-top: 24px;">☁️ GitHub Gist 雲端同步</div>
             <div id="gist-status" class="gist-status">
@@ -386,7 +383,7 @@
                 </div>
             </div>
 
-            <div class="version-text">Version 9.1 ✨ Watercolor Ink Edition</div>
+            <div class="version-text">Version 9.2 ✨ Watercolor Sunset Edition</div>
         </div>
     </div>
 
@@ -420,7 +417,7 @@
                 </ol>
             </div>
 
-            <div class="version-text">Version 9.1 ✨ Watercolor Ink Edition</div>
+            <div class="version-text">Version 9.2 ✨ Watercolor Sunset Edition</div>
         </div>
     </div>
 
@@ -452,10 +449,11 @@
             setTimeout(() => { if (container.contains(toast)) container.removeChild(toast); }, 3000);
         }
 
+        // 修改頂部 Meta 主題色，將 gray 換成橘色系 (fce2cd)
         const themeMetaColors = { 
             'light': '#d8e8e5', 'green': '#d8efda',
             'purple': '#eedaf2', 'blue': '#d4effc', 'brown': '#e9e2df', 
-            'gray': '#dde2e5'
+            'orange': '#fce2cd' 
         };
         
         function updateThemeMeta(theme) { 
